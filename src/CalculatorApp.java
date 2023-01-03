@@ -1,6 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class CalculatorApp extends JFrame {
 
     private Border debugBorder = BorderFactory.createLineBorder(Color.GREEN, 5);
@@ -15,8 +18,13 @@ public class CalculatorApp extends JFrame {
                     but1, but2, but3, but_sum,
                     but0, but_float, but_equals;
 
+    private String arg1 = "0", arg2 = "0";
+    private char operator = '+';
+    private boolean cleared = true;
+
     public CalculatorApp() {
         prepareGUI();
+        addButtonListeners();
     }
 
     public void prepareGUI() {
@@ -26,8 +34,8 @@ public class CalculatorApp extends JFrame {
         setSize(230, 320);
         setResizable(false);
         setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("calc_icon.png"); // TODO: se ne dela
-        setIconImage(icon.getImage());
+        ImageIcon icon = new ImageIcon("calc_icon.png");
+        this.setIconImage(icon.getImage());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(new Color(83, 83, 83));
@@ -49,7 +57,7 @@ public class CalculatorApp extends JFrame {
         gbc.gridy = 0;
         buttonsPanel.add(but_ac, gbc);
 
-        but_negative = new CalculatorButton("+/-", midGray);
+        but_negative = new CalculatorButton("+/−", midGray);
         gbc.gridx = 1;
         gbc.gridy = 0;
         buttonsPanel.add(but_negative, gbc);
@@ -80,7 +88,7 @@ public class CalculatorApp extends JFrame {
         gbc.gridy = 1;
         buttonsPanel.add(but9, gbc);
 
-        but_multiply = new CalculatorButton("*", orange);
+        but_multiply = new CalculatorButton("×", orange);
         gbc.gridx = 3;
         gbc.gridy = 1;
         buttonsPanel.add(but_multiply, gbc);
@@ -101,7 +109,7 @@ public class CalculatorApp extends JFrame {
         gbc.gridy = 2;
         buttonsPanel.add(but6, gbc);
 
-        but_subtract = new CalculatorButton("-", orange);
+        but_subtract = new CalculatorButton("−", orange);
         gbc.gridx = 3;
         gbc.gridy = 2;
         buttonsPanel.add(but_subtract, gbc);
@@ -132,10 +140,9 @@ public class CalculatorApp extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
-        // gbc.fill = GridBagConstraints.HORIZONTAL;
         buttonsPanel.add(but0, gbc);
 
-        but_float = new CalculatorButton(",", lightGray);
+        but_float = new CalculatorButton(".", lightGray);
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
@@ -153,6 +160,222 @@ public class CalculatorApp extends JFrame {
         this.setVisible(true);
     }
 
+    public void addButtonListeners() {
+        but_ac.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (cleared) {
+                    allClear();
+                }
+                else {
+                    clear();
+                }
+            }
+        });
+
+        but_negative.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (arg2 == "0") {
+                    return;
+                }
+                if (arg2.startsWith("-")) {
+                    arg2.substring(1);
+                } else {
+                    arg2 = "-" + arg2;
+                }
+                text.setText(noDoubleZero(arg2));
+            }
+        });
+
+        but_mod.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operator = '%';
+                resolveOperator();
+            }
+        });
+
+        but_divide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operator = '/';
+                resolveOperator();
+            }
+        });
+
+        but7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("7");
+            }
+        });
+
+        but8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("8");
+            }
+        });
+
+        but9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("9");
+            }
+        });
+
+        but_multiply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operator = '*';
+                resolveOperator();
+            }
+        });
+
+        but4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("4");
+            }
+        });
+
+        but5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("5");
+            }
+        });
+
+        but6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("6");
+            }
+        });
+
+        but_subtract.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operator = '-';
+                resolveOperator();
+            }
+        });
+
+        but1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("1");
+            }
+        });
+
+        but2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("2");
+            }
+        });
+
+        but3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("3");
+            }
+        });
+
+        but_sum.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                operator = '+';
+                resolveOperator();
+            }
+        });
+
+        but0.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText("0");
+            }
+        });
+
+        but_float.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!arg2.contains(".")) {
+                    arg2 = arg2.concat(".");
+                }
+            }
+        });
+
+        but_equals.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+    }
+
+    public void clear() {
+        arg2 = "0";
+        but_ac.changeTextTo("AC");
+        text.setText(noDoubleZero(arg2));
+    }
+
+    public void allClear() {
+        cleared = true;
+        arg1 = "0";
+        clear();
+    }
+
+    public void resolveOperator() {
+        if (cleared) {
+            arg1 = arg2;
+        } else {
+            double dArg1 = Double.parseDouble(arg1), dArg2 = Double.parseDouble(arg2), result = 0;
+
+            switch (operator) {
+                case '+':
+                    result = dArg1 + dArg2;
+                    break;
+                case '-':
+                    result = dArg1 - dArg2;
+                    break;
+                case '*':
+                    result = dArg1 * dArg2;
+                    break;
+                case '/':
+                    result = dArg1 / dArg2;
+                    break;
+                case '%':
+                    result = dArg1 % dArg2;
+
+            }
+
+            arg1 = result + "";
+            text.setText(noDoubleZero(arg1));
+        }
+        arg2 = "0";
+    }
+
+    public void addText(String fresh) {
+        cleared = false;
+        but_ac.setText(" C "); // TODO: no whitespaces
+        if(arg2.equals("0")) {
+            arg2 = fresh;
+        } else {
+            arg2 = arg2.concat(fresh);
+        }
+
+        text.setText(arg2);
+    }
+
+    public String noDoubleZero(String in) {
+        if (in.endsWith(".0")) {
+            return in.substring(0, in.indexOf("."));
+        }
+        else return in;
+    }
     public static void main(String[] args) {
         new CalculatorApp();
     }

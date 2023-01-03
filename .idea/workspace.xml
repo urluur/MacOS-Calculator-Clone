@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84bf9ebe-acd4-4136-b6ee-b916cfd328ad" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/calc_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dn11.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CalculatorApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CalculatorButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CalculatorApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CalculatorButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorButton.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,12 +78,25 @@
       <workItem from="1672735859300" duration="1713000" />
       <workItem from="1672737598433" duration="33000" />
       <workItem from="1672737643353" duration="10000" />
-      <workItem from="1672737679248" duration="9361000" />
+      <workItem from="1672737679248" duration="11044000" />
+      <workItem from="1672751803899" duration="1077000" />
+      <workItem from="1672752918833" duration="6950000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class CalculatorButton extends JButton {
     public CalculatorButton(String text, Color bg_color) {
-        this.setFocusPainted(false);
         this.setText(text);
         this.setOpaque(true);
         this.setBackground(bg_color);
@@ -14,7 +13,7 @@ public class CalculatorButton extends JButton {
         Border inside_border = (BorderFactory.createEmptyBorder(15, 20, 15, 20));
         this.setBorder(BorderFactory.createCompoundBorder(outside_border, inside_border));
 
-        this.setFont(new Font("Xenara", Font.BOLD, 16));
+        this.setFont(new Font("Arial", Font.PLAIN, 16));
     }
 
     public void changeColorTo(Color color) {
