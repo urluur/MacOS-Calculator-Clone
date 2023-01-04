@@ -7,7 +7,6 @@
     <list default="true" id="84bf9ebe-acd4-4136-b6ee-b916cfd328ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CalculatorApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CalculatorButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorButton.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +45,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -80,6 +80,9 @@
       <workItem from="1672737679248" duration="11044000" />
       <workItem from="1672751803899" duration="1077000" />
       <workItem from="1672752918833" duration="6950000" />
+      <workItem from="1672836913270" duration="35000" />
+      <workItem from="1672837514413" duration="16628000" />
+      <workItem from="1672854758428" duration="3000" />
     </task>
     <servers />
   </component>
@@ -104,11 +107,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/CalculatorApp.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
