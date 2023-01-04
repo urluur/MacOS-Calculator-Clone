@@ -6,10 +6,11 @@ import java.awt.event.ActionListener;
 
 public class CalculatorApp extends JFrame {
 
-    private Border debugBorder = BorderFactory.createLineBorder(Color.GREEN, 5);
-    private Color orange = new Color(255, 149, 12),
-            darkGray = new Color(70, 60, 60),
-            midGray = new Color(92, 92, 92),
+    private final Border debugBorder = BorderFactory.createLineBorder(Color.GREEN, 5);
+
+    private static final Color orange = new Color(255, 149, 12),
+            darkGray = new Color(80, 75, 75),
+            midGray = new Color(91, 91, 91),
             lightGray = new Color(113, 107, 108);
     private JLabel text = new JLabel("0");
     private CalculatorButton but_ac, but_negative, but_mod, but_divide,
@@ -18,9 +19,6 @@ public class CalculatorApp extends JFrame {
                     but1, but2, but3, but_sum,
                     but0, but_float, but_equals;
 
-    private String arg1 = "0", arg2 = "0";
-    private char operator = '+';
-    private boolean cleared = true;
 
     public CalculatorApp() {
         prepareGUI();
@@ -38,7 +36,7 @@ public class CalculatorApp extends JFrame {
         this.setIconImage(icon.getImage());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(new Color(83, 83, 83));
+        mainPanel.setBackground(darkGray);
 
         text.setHorizontalAlignment(JLabel.RIGHT);
         text.setForeground(Color.WHITE);
@@ -142,7 +140,7 @@ public class CalculatorApp extends JFrame {
         gbc.gridwidth = 2;
         buttonsPanel.add(but0, gbc);
 
-        but_float = new CalculatorButton(".", lightGray);
+        but_float = new CalculatorButton(",", lightGray);
         gbc.gridx = 2;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
@@ -156,6 +154,7 @@ public class CalculatorApp extends JFrame {
 
         mainPanel.add(buttonsPanel);
         this.add(mainPanel);
+        // this.setUndecorated(true); // TODO: custom window decorations
         this.pack();
         this.setVisible(true);
     }
@@ -164,146 +163,126 @@ public class CalculatorApp extends JFrame {
         but_ac.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (cleared) {
-                    allClear();
-                }
-                else {
-                    clear();
-                }
+                // TODO: start working here
             }
         });
 
         but_negative.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (arg2 == "0") {
-                    return;
-                }
-                if (arg2.startsWith("-")) {
-                    arg2.substring(1);
-                } else {
-                    arg2 = "-" + arg2;
-                }
-                text.setText(noDoubleZero(arg2));
+
             }
         });
 
         but_mod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operator = '%';
-                resolveOperator();
+
             }
         });
 
         but_divide.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operator = '/';
-                resolveOperator();
+
             }
         });
 
         but7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("7");
+
             }
         });
 
         but8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("8");
+
             }
         });
 
         but9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("9");
+
             }
         });
 
         but_multiply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operator = '*';
-                resolveOperator();
+
             }
         });
 
         but4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("4");
+
             }
         });
 
         but5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("5");
+
             }
         });
 
         but6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("6");
+
             }
         });
 
         but_subtract.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operator = '-';
-                resolveOperator();
+
             }
         });
 
         but1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("1");
+
             }
         });
 
         but2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("2");
+
             }
         });
 
         but3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("3");
+
             }
         });
 
         but_sum.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operator = '+';
-                resolveOperator();
+
             }
         });
 
         but0.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText("0");
+
             }
         });
 
         but_float.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!arg2.contains(".")) {
-                    arg2 = arg2.concat(".");
-                }
+
             }
         });
 
@@ -316,66 +295,21 @@ public class CalculatorApp extends JFrame {
 
     }
 
-    public void clear() {
-        arg2 = "0";
-        but_ac.changeTextTo("AC");
-        text.setText(noDoubleZero(arg2));
-    }
-
-    public void allClear() {
-        cleared = true;
-        arg1 = "0";
-        clear();
-    }
-
-    public void resolveOperator() {
-        if (cleared) {
-            arg1 = arg2;
-        } else {
-            double dArg1 = Double.parseDouble(arg1), dArg2 = Double.parseDouble(arg2), result = 0;
-
-            switch (operator) {
-                case '+':
-                    result = dArg1 + dArg2;
-                    break;
-                case '-':
-                    result = dArg1 - dArg2;
-                    break;
-                case '*':
-                    result = dArg1 * dArg2;
-                    break;
-                case '/':
-                    result = dArg1 / dArg2;
-                    break;
-                case '%':
-                    result = dArg1 % dArg2;
-
-            }
-
-            arg1 = result + "";
-            text.setText(noDoubleZero(arg1));
-        }
-        arg2 = "0";
-    }
-
-    public void addText(String fresh) {
-        cleared = false;
-        but_ac.setText(" C "); // TODO: no whitespaces
-        if(arg2.equals("0")) {
-            arg2 = fresh;
-        } else {
-            arg2 = arg2.concat(fresh);
-        }
-
-        text.setText(arg2);
-    }
-
     public String noDoubleZero(String in) {
         if (in.endsWith(".0")) {
             return in.substring(0, in.indexOf("."));
         }
         else return in;
     }
+
+    public static Color getOrange() {
+        return orange;
+    }
+
+    public static Color getDarkGray() {
+        return darkGray;
+    }
+
     public static void main(String[] args) {
         new CalculatorApp();
     }

@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84bf9ebe-acd4-4136-b6ee-b916cfd328ad" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CalculatorApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CalculatorButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorButton.java" afterDir="false" />
@@ -105,6 +104,11 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/CalculatorApp.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
