@@ -29,7 +29,7 @@ public class CalculatorApp extends JFrame implements KeyListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Calculator");
         setBackground(darkGray);
-        setSize(230, 320);
+        setSize(233, 350);
         setResizable(false);
         setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon("calc_icon.png");
@@ -164,38 +164,55 @@ public class CalculatorApp extends JFrame implements KeyListener {
 
     public void addButtonListeners() {
         but_ac.addActionListener(e -> butAcPressed());
+        but_ac.addKeyListener(this);
 
         but_negative.addActionListener(e -> butNegativeClicked());
+        but_negative.addKeyListener(this);
 
         but_mod.addActionListener(e -> resolveOperator("%"));
+        but_mod.addKeyListener(this);
 
         but_divide.addActionListener(e -> resolveOperator("/"));
+        but_divide.addKeyListener(this);
 
         but7.addActionListener(e -> pressed("7"));
+        but7.addKeyListener(this);
 
         but8.addActionListener(e -> pressed("8"));
+        but8.addKeyListener(this);
 
         but9.addActionListener(e -> pressed("9"));
+        but9.addKeyListener(this);
 
         but_multiply.addActionListener(e -> resolveOperator("*"));
+        but_multiply.addKeyListener(this);
 
         but4.addActionListener(e -> pressed("4"));
+        but4.addKeyListener(this);
 
         but5.addActionListener(e -> pressed("5"));
+        but5.addKeyListener(this);
 
         but6.addActionListener(e -> pressed("6"));
+        but6.addKeyListener(this);
 
         but_subtract.addActionListener(e -> resolveOperator("-"));
+        but_subtract.addKeyListener(this);
 
         but1.addActionListener(e -> pressed("1"));
+        but1.addKeyListener(this);
 
         but2.addActionListener(e -> pressed("2"));
+        but2.addKeyListener(this);
 
         but3.addActionListener(e -> pressed("3"));
+        but3.addKeyListener(this);
 
         but_add.addActionListener(e -> resolveOperator("+"));
+        but_add.addKeyListener(this);
 
         but0.addActionListener(e -> butZeroClicked());
+        but0.addKeyListener(this);
 
         but_float.addActionListener(e -> {
             if (noArgNoOperator()) {
@@ -203,15 +220,15 @@ public class CalculatorApp extends JFrame implements KeyListener {
             } else if (oneArgNoOperator()) {
                 if (!arg1.contains(".")) {
                     arg1 = arg1.concat(".");
-                    text.setText(arg1);
+                    fSetText(arg1);
                 }
             } else if (oneArgAndOperator()) {
                 arg2 = "0.";
-                text.setText(arg2);
+                fSetText(arg2);
             } else if (bothArgsAndOperator()) {
                 if(!arg2.contains(".")) {
                     arg2 = arg2.concat(".");
-                    text.setText(arg2);
+                    fSetText(arg2);
                 }
             }
         });
@@ -277,16 +294,16 @@ public class CalculatorApp extends JFrame implements KeyListener {
         changeToC();
         if (noArgNoOperator()) {
             arg1 = fresh;
-            text.setText(arg1);
+            fSetText(arg1);
         } else if (oneArgNoOperator()) {
             arg1 = arg1.concat(fresh);
-            text.setText(arg1);
+            fSetText(arg1);
         } else if (oneArgAndOperator()) {
             arg2 = fresh;
-            text.setText(arg2);
+            fSetText(arg2);
         } else if (bothArgsAndOperator()) {
             arg2 = arg2.concat(fresh);
-            text.setText(arg2);
+            fSetText(arg2);
         }
     }
 
@@ -299,17 +316,26 @@ public class CalculatorApp extends JFrame implements KeyListener {
     }
 
     public void fSetText(String fresh) {
-        // TODO: print doubles without 0.0
+        fSetText(fresh, true);
+    }
+
+    public void fSetText(String fresh, boolean removeDoubleZero) {
+        if (removeDoubleZero) {
+            if(fresh.endsWith(".0")) {
+                fresh = fresh.replace(".0", "");
+            }
+        }
+        fresh = fresh.replace('.', ',');
         text.setText(fresh);
     }
 
     public void butNegativeClicked() {
         if (oneArgNoOperator() || oneArgAndOperator()) {
             arg1 = resolveNegative(arg1);
-            text.setText(arg1);
+            fSetText(arg1);
         } else if (bothArgsAndOperator()) {
             arg2 = resolveNegative(arg2);
-            text.setText(arg2);
+            fSetText(arg2);
         }
     }
 
@@ -331,10 +357,10 @@ public class CalculatorApp extends JFrame implements KeyListener {
     public void butZeroClicked() {
         if (oneArgNoOperator()) {
             arg1 = arg1.concat("0");
-            text.setText(arg1);
+            fSetText(arg1);
         } else if (bothArgsAndOperator()) {
             arg2 = arg2.concat("0");
-            text.setText(arg2);
+            fSetText(arg2);
         }
     }
 
@@ -350,14 +376,14 @@ public class CalculatorApp extends JFrame implements KeyListener {
         if (oneArgNoOperator()) {
             arg1 = null;
             changeToAC();
-            text.setText("0");
+            fSetText("0");
         } else if (oneArgAndOperator()) {
             operator = null;
             changeToAC();
         } else if (bothArgsAndOperator()) {
             arg2 = null;
             changeToAC();
-            text.setText("0");
+            fSetText("0");
         }
     }
 
