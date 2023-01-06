@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class CalculatorApp extends JFrame {
+public class CalculatorApp extends JFrame implements KeyListener {
     private static final Color orange = new Color(255, 149, 12),
             darkGray = new Color(80, 75, 75),
             midGray = new Color(91, 91, 91),
@@ -12,8 +14,11 @@ public class CalculatorApp extends JFrame {
                     but4, but5, but6, but_subtract,
                     but1, but2, but3, but_add,
                     but0, but_float, but_equals;
-
     private String arg1 = null, arg2 = null, operator = null;
+
+    public static void main(String[] args) {
+        new CalculatorApp();
+    }
 
     public CalculatorApp() {
         prepareGUI();
@@ -24,19 +29,22 @@ public class CalculatorApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Calculator");
         setBackground(darkGray);
-        setSize(230, 320);
+        setSize(233, 350);
         setResizable(false);
         setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon("calc_icon.png");
         this.setIconImage(icon.getImage());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.addKeyListener(this);
         mainPanel.setBackground(darkGray);
 
         text.setHorizontalAlignment(JLabel.RIGHT);
         text.setForeground(Color.WHITE);
         text.setBorder(BorderFactory.createEmptyBorder(5, 20, 5, 20));
         text.setFont(new Font("Arial", Font.PLAIN, 50));
+        text.setFocusable(true);
+        text.addKeyListener(this); // TODO: sometimes maybe yes sometimes maybe no
         mainPanel.add(text, BorderLayout.NORTH);
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -155,68 +163,56 @@ public class CalculatorApp extends JFrame {
     }
 
     public void addButtonListeners() {
-        but_ac.addActionListener(e -> {
-            if (oneArgNoOperator()) {
-                arg1 = null;
-                changeToAC();
-                text.setText("0");
-            } else if (oneArgAndOperator()) {
-                operator = null;
-                changeToAC();
-            } else if (bothArgsAndOperator()) {
-                arg2 = null;
-                changeToAC();
-                text.setText("0");
-            }
-        });
+        but_ac.addActionListener(e -> butAcPressed());
+        but_ac.addKeyListener(this);
 
-        but_negative.addActionListener(e -> {
-            if (oneArgNoOperator() || oneArgAndOperator()) {
-                arg1 = resolveNegative(arg1);
-                text.setText(arg1);
-            } else if (bothArgsAndOperator()) {
-                arg2 = resolveNegative(arg2);
-                text.setText(arg2);
-            }
-        });
+        but_negative.addActionListener(e -> butNegativeClicked());
+        but_negative.addKeyListener(this);
 
         but_mod.addActionListener(e -> resolveOperator("%"));
+        but_mod.addKeyListener(this);
 
         but_divide.addActionListener(e -> resolveOperator("/"));
+        but_divide.addKeyListener(this);
 
         but7.addActionListener(e -> pressed("7"));
+        but7.addKeyListener(this);
 
         but8.addActionListener(e -> pressed("8"));
+        but8.addKeyListener(this);
 
         but9.addActionListener(e -> pressed("9"));
+        but9.addKeyListener(this);
 
         but_multiply.addActionListener(e -> resolveOperator("*"));
+        but_multiply.addKeyListener(this);
 
         but4.addActionListener(e -> pressed("4"));
+        but4.addKeyListener(this);
 
         but5.addActionListener(e -> pressed("5"));
+        but5.addKeyListener(this);
 
         but6.addActionListener(e -> pressed("6"));
+        but6.addKeyListener(this);
 
         but_subtract.addActionListener(e -> resolveOperator("-"));
+        but_subtract.addKeyListener(this);
 
         but1.addActionListener(e -> pressed("1"));
+        but1.addKeyListener(this);
 
         but2.addActionListener(e -> pressed("2"));
+        but2.addKeyListener(this);
 
         but3.addActionListener(e -> pressed("3"));
+        but3.addKeyListener(this);
 
         but_add.addActionListener(e -> resolveOperator("+"));
+        but_add.addKeyListener(this);
 
-        but0.addActionListener(e -> {
-            if (oneArgNoOperator()) {
-                arg1 = arg1.concat("0");
-                text.setText(arg1);
-            } else if (bothArgsAndOperator()) {
-                arg2 = arg2.concat("0");
-                text.setText(arg2);
-            }
-        });
+        but0.addActionListener(e -> butZeroClicked());
+        but0.addKeyListener(this);
 
         but_float.addActionListener(e -> {
             if (noArgNoOperator()) {
@@ -224,33 +220,20 @@ public class CalculatorApp extends JFrame {
             } else if (oneArgNoOperator()) {
                 if (!arg1.contains(".")) {
                     arg1 = arg1.concat(".");
-                    text.setText(arg1);
+                    fSetText(arg1);
                 }
             } else if (oneArgAndOperator()) {
                 arg2 = "0.";
-                text.setText(arg2);
+                fSetText(arg2);
             } else if (bothArgsAndOperator()) {
                 if(!arg2.contains(".")) {
                     arg2 = arg2.concat(".");
-                    text.setText(arg2);
+                    fSetText(arg2);
                 }
             }
         });
 
-        but_equals.addActionListener(e -> {
-            if (oneArgAndOperator()) {
-                arg2 = arg1;
-                arg1 = solve(arg1, operator, arg2);
-                operator = null;
-                arg2 = null;
-                fSetText(arg1);
-            } else if (bothArgsAndOperator()) {
-                arg1 = solve(arg1, operator, arg2);
-                operator = null;
-                arg2 = null;
-                fSetText(arg1);
-            }
-        });
+        but_equals.addActionListener(e -> butEqualsClicked());
     }
 
     public String solve(String arg1, String operator, String arg2) {
@@ -311,16 +294,16 @@ public class CalculatorApp extends JFrame {
         changeToC();
         if (noArgNoOperator()) {
             arg1 = fresh;
-            text.setText(arg1);
+            fSetText(arg1);
         } else if (oneArgNoOperator()) {
             arg1 = arg1.concat(fresh);
-            text.setText(arg1);
+            fSetText(arg1);
         } else if (oneArgAndOperator()) {
             arg2 = fresh;
-            text.setText(arg2);
+            fSetText(arg2);
         } else if (bothArgsAndOperator()) {
             arg2 = arg2.concat(fresh);
-            text.setText(arg2);
+            fSetText(arg2);
         }
     }
 
@@ -333,8 +316,52 @@ public class CalculatorApp extends JFrame {
     }
 
     public void fSetText(String fresh) {
-        // TODO: print doubles without 0.0
+        fSetText(fresh, true);
+    }
+
+    public void fSetText(String fresh, boolean removeDoubleZero) {
+        if (removeDoubleZero) {
+            if(fresh.endsWith(".0")) {
+                fresh = fresh.replace(".0", "");
+            }
+        }
+        fresh = fresh.replace('.', ',');
         text.setText(fresh);
+    }
+
+    public void butNegativeClicked() {
+        if (oneArgNoOperator() || oneArgAndOperator()) {
+            arg1 = resolveNegative(arg1);
+            fSetText(arg1);
+        } else if (bothArgsAndOperator()) {
+            arg2 = resolveNegative(arg2);
+            fSetText(arg2);
+        }
+    }
+
+    public void butEqualsClicked() {
+        if (oneArgAndOperator()) {
+            arg2 = arg1;
+            arg1 = solve(arg1, operator, arg2);
+            operator = null;
+            arg2 = null;
+            fSetText(arg1);
+        } else if (bothArgsAndOperator()) {
+            arg1 = solve(arg1, operator, arg2);
+            operator = null;
+            arg2 = null;
+            fSetText(arg1);
+        }
+    }
+
+    public void butZeroClicked() {
+        if (oneArgNoOperator()) {
+            arg1 = arg1.concat("0");
+            fSetText(arg1);
+        } else if (bothArgsAndOperator()) {
+            arg2 = arg2.concat("0");
+            fSetText(arg2);
+        }
     }
 
     public static Color getOrange() {
@@ -345,7 +372,42 @@ public class CalculatorApp extends JFrame {
         return darkGray;
     }
 
-    public static void main(String[] args) {
-        new CalculatorApp();
+    public void butAcPressed() {
+        if (oneArgNoOperator()) {
+            arg1 = null;
+            changeToAC();
+            fSetText("0");
+        } else if (oneArgAndOperator()) {
+            operator = null;
+            changeToAC();
+        } else if (bothArgsAndOperator()) {
+            arg2 = null;
+            changeToAC();
+            fSetText("0");
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        char c = e.getKeyChar();
+        if(c >= '1' && c <= '9') {
+            pressed(c + "");
+            return;
+        } else if ("+-*/%".contains(c + "")) {
+            resolveOperator(c + "");
+            return;
+        }
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case 78 -> butNegativeClicked();
+            case 10 -> butEqualsClicked();
+            case 48 -> butZeroClicked();
+            case 27 -> butAcPressed();
+        }
     }
 }
