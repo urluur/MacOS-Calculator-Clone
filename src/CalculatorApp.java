@@ -33,7 +33,7 @@ public class CalculatorApp extends JFrame implements KeyListener {
         setResizable(false);
         setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon("calc_icon.png");
-        this.setIconImage(icon.getImage());
+        setIconImage(icon.getImage());
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.addKeyListener(this);
@@ -246,6 +246,12 @@ public class CalculatorApp extends JFrame implements KeyListener {
             case "%" -> result = x % y;
             default -> System.out.println("Error: invalid operator.");
         }
+
+        // easter egg joke
+        if(arg1.equals("9") && operator.equals("+") && arg2.equals("10")) {
+            System.out.println(21);
+        }
+
         return result + "";
     }
 
@@ -262,6 +268,18 @@ public class CalculatorApp extends JFrame implements KeyListener {
             operator = symbol;
             arg2 = null;
             fSetText(arg1);
+        } else if (arg1 != null && operator == null && arg2 != null) {
+            operator = symbol;
+            arg2 = null;
+            fSetText(arg1);
+        }
+        resetOperators();
+        switch (symbol) {
+            case "+" -> but_add.setSelected(true);
+            case "-" -> but_subtract.setSelected(true);
+            case "*" -> but_multiply.setSelected(true);
+            case "/" -> but_divide.setSelected(true);
+            case "%" -> but_mod.setSelected(true);
         }
     }
 
@@ -304,15 +322,21 @@ public class CalculatorApp extends JFrame implements KeyListener {
         } else if (bothArgsAndOperator()) {
             arg2 = arg2.concat(fresh);
             fSetText(arg2);
+        } else if (arg1 != null && operator == null && arg2 != null){
+            arg1 = fresh;
+            arg2 = null;
+            fSetText(arg1);
         }
     }
 
     public void changeToC() {
-        but_ac.changeTextTo(" C "); // TODO: without whitespaces
+        but_ac.changeTextTo(" C "); // TODO: without whitespaces (fixed grid)
+        pack();
     }
 
     public void changeToAC() {
         but_ac.changeTextTo("AC");
+        pack();
     }
 
     public void fSetText(String fresh) {
@@ -344,12 +368,13 @@ public class CalculatorApp extends JFrame implements KeyListener {
             arg2 = arg1;
             arg1 = solve(arg1, operator, arg2);
             operator = null;
+            resetOperators();
             arg2 = null;
             fSetText(arg1);
         } else if (bothArgsAndOperator()) {
             arg1 = solve(arg1, operator, arg2);
             operator = null;
-            arg2 = null;
+            resetOperators();
             fSetText(arg1);
         }
     }
@@ -379,12 +404,28 @@ public class CalculatorApp extends JFrame implements KeyListener {
             fSetText("0");
         } else if (oneArgAndOperator()) {
             operator = null;
+            resetOperators();
             changeToAC();
         } else if (bothArgsAndOperator()) {
             arg2 = null;
             changeToAC();
             fSetText("0");
+        } else {
+            arg1 = null;
+            operator = null;
+            arg2 = null;
+            changeToAC();
+            resetOperators();
+            fSetText("0");
         }
+    }
+
+    public void resetOperators() {
+        but_add.setSelected(false);
+        but_subtract.setSelected(false);
+        but_multiply.setSelected(false);
+        but_divide.setSelected(false);
+        but_mod.setSelected(false);
     }
 
     @Override

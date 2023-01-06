@@ -4,37 +4,43 @@ import java.awt.*;
 
 public class CalculatorButton extends JButton {
 
-    private Color pressedBackgroundColor;
-    private final Border basicBorder;
+    private final Color pressedBackgroundColor;
+    private final Border basicBorder, selectedBorder;
 
     public CalculatorButton(String text, Color bg_color) {
         super(text);
-        this.setOpaque(true);
-        this.setBackground(bg_color);
+        setOpaque(true);
+        setBackground(bg_color);
         if(bg_color.equals(CalculatorApp.getOrange())){
             pressedBackgroundColor = bg_color.darker();
         } else {
             pressedBackgroundColor = bg_color.brighter();
         }
-        this.setForeground(Color.WHITE);
+        setForeground(Color.WHITE);
 
         Border outside_border = BorderFactory.createMatteBorder(1, 1, 0, 0, CalculatorApp.getDarkGray());
         Border inside_border = BorderFactory.createEmptyBorder(15, 20, 15, 20);
+        Border inside_border_smaller = BorderFactory.createEmptyBorder(14, 19, 14, 19);
+        Border outline = BorderFactory.createLineBorder(CalculatorApp.getDarkGray().darker(), 1);
         basicBorder = BorderFactory.createCompoundBorder(outside_border, inside_border);
-        this.setBorder(basicBorder);
+        Border basicBorderSmaller = BorderFactory.createCompoundBorder(outside_border, inside_border_smaller);
+        selectedBorder = BorderFactory.createCompoundBorder(outline, basicBorderSmaller);
+        setBorder(basicBorder);
 
-        this.setFont(new Font("Arial", Font.PLAIN, 16));
+        setFont(new Font("Arial", Font.PLAIN, 16));
         super.setContentAreaFilled(false);
     }
 
-
-
-    public void changeColorTo(Color color) {
-        this.setBackground(color);
+    public void changeTextTo(String text) {
+        setText(text);
     }
 
-    public void changeTextTo(String text) {
-        this.setText(text);
+    public void setSelected(boolean selected) {
+        if(selected) {
+            setBorder(selectedBorder);
+        } else {
+            setBorder(basicBorder);
+        }
     }
 
     // source: https://stackoverflow.com/questions/14627223/how-to-change-a-jbutton-color-on-mouse-pressed
