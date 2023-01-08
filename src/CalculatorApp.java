@@ -41,10 +41,10 @@ public class CalculatorApp extends JFrame implements KeyListener {
 
         text.setHorizontalAlignment(JLabel.RIGHT);
         text.setForeground(Color.WHITE);
-        text.setBorder(BorderFactory.createEmptyBorder(5, 20, 5, 20));
-        text.setFont(new Font("Arial", Font.PLAIN, 50));
+        text.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        text.setFont(new Font("Arial", Font.PLAIN, 40));
         text.setFocusable(true);
-        text.addKeyListener(this); // TODO: sometimes maybe yes sometimes maybe no
+        text.addKeyListener(this);
         mainPanel.add(text, BorderLayout.NORTH);
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -63,12 +63,12 @@ public class CalculatorApp extends JFrame implements KeyListener {
         gbc.gridy = 0;
         buttonsPanel.add(but_negative, gbc);
 
-        but_mod = new CalculatorButton("%", midGray);
+        but_mod = new CalculatorButton(" % ", midGray);
         gbc.gridx = 2;
         gbc.gridy = 0;
         buttonsPanel.add(but_mod, gbc);
 
-        but_divide = new CalculatorButton("/", orange);
+        but_divide = new CalculatorButton("  /  ", orange);
         gbc.gridx = 3;
         gbc.gridy = 0;
         buttonsPanel.add(but_divide, gbc);
@@ -330,13 +330,11 @@ public class CalculatorApp extends JFrame implements KeyListener {
     }
 
     public void changeToC() {
-        but_ac.changeTextTo(" C "); // TODO: without whitespaces (fixed grid)
-        pack();
+        but_ac.changeTextTo("C");
     }
 
     public void changeToAC() {
         but_ac.changeTextTo("AC");
-        pack();
     }
 
     public void fSetText(String fresh) {
@@ -360,6 +358,9 @@ public class CalculatorApp extends JFrame implements KeyListener {
         } else if (bothArgsAndOperator()) {
             arg2 = resolveNegative(arg2);
             fSetText(arg2);
+        } else if (arg1 != null && operator == null && arg2 != null) {
+            arg1 = resolveNegative(arg1);
+            fSetText(arg1);
         }
     }
 

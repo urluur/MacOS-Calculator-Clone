@@ -46,6 +46,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -88,6 +89,10 @@
       <workItem from="1672937124107" duration="356000" />
       <workItem from="1672993088673" duration="325000" />
       <workItem from="1672999938611" duration="5632000" />
+      <workItem from="1673093856353" duration="49000" />
+      <workItem from="1673102466971" duration="562000" />
+      <workItem from="1673103329555" duration="490000" />
+      <workItem from="1673188229803" duration="6435000" />
     </task>
     <servers />
   </component>

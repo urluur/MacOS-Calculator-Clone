@@ -5,7 +5,7 @@ import java.awt.*;
 public class CalculatorButton extends JButton {
 
     private final Color pressedBackgroundColor;
-    private final Border basicBorder, selectedBorder;
+    private final Border basicBorder, basicBorderC, selectedBorder;
 
     public CalculatorButton(String text, Color bg_color) {
         super(text);
@@ -19,10 +19,16 @@ public class CalculatorButton extends JButton {
         setForeground(Color.WHITE);
 
         Border outside_border = BorderFactory.createMatteBorder(1, 1, 0, 0, CalculatorApp.getDarkGray());
-        Border inside_border = BorderFactory.createEmptyBorder(15, 20, 15, 20);
-        Border inside_border_smaller = BorderFactory.createEmptyBorder(14, 19, 14, 19);
+        int borderY = 14;
+        int borderX = 17;
+        Border inside_border = BorderFactory.createEmptyBorder(borderY, borderX, borderY, borderX);
+        int fixLeft = borderX + 6;
+        int fixRight = borderX + 5;
+        Border inside_border_c = BorderFactory.createEmptyBorder(borderY, fixLeft, borderY, fixRight);
+        Border inside_border_smaller = BorderFactory.createEmptyBorder(borderY - 1, borderX - 1, borderY - 1, borderX - 1);
         Border outline = BorderFactory.createLineBorder(CalculatorApp.getDarkGray().darker(), 1);
         basicBorder = BorderFactory.createCompoundBorder(outside_border, inside_border);
+        basicBorderC = BorderFactory.createCompoundBorder(outside_border, inside_border_c);
         Border basicBorderSmaller = BorderFactory.createCompoundBorder(outside_border, inside_border_smaller);
         selectedBorder = BorderFactory.createCompoundBorder(outline, basicBorderSmaller);
         setBorder(basicBorder);
@@ -32,6 +38,10 @@ public class CalculatorButton extends JButton {
     }
 
     public void changeTextTo(String text) {
+        switch (text) {
+            case "AC" -> setBorder(basicBorder);
+            case "C" -> setBorder(basicBorderC);
+        }
         setText(text);
     }
 
