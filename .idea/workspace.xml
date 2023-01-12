@@ -24,6 +24,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar:///Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home/lib/src.zip!/java.desktop/java/awt/event/KeyListener.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -93,6 +96,16 @@
       <workItem from="1673102466971" duration="562000" />
       <workItem from="1673103329555" duration="490000" />
       <workItem from="1673188229803" duration="6435000" />
+      <workItem from="1673201443556" duration="11000" />
+      <workItem from="1673255282382" duration="22000" />
+      <workItem from="1673256279564" duration="12000" />
+      <workItem from="1673261111622" duration="64000" />
+      <workItem from="1673282565612" duration="22000" />
+      <workItem from="1673460509647" duration="42000" />
+      <workItem from="1673460649443" duration="416000" />
+      <workItem from="1673519968543" duration="1912000" />
+      <workItem from="1673522440749" duration="2968000" />
+      <workItem from="1673530291711" duration="2500000" />
     </task>
     <servers />
   </component>

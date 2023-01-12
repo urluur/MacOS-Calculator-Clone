@@ -18,25 +18,83 @@ public class CalculatorButton extends JButton {
         }
         setForeground(Color.WHITE);
 
-        Border outside_border = BorderFactory.createMatteBorder(1, 1, 0, 0, CalculatorApp.getDarkGray());
+        // creates dark gray gird lines between buttons
+        Border outside_border = BorderFactory.createMatteBorder(
+                1,
+                1,
+                0,
+                0,
+                CalculatorApp.getDarkGray()
+        );
+
         int borderY = 14;
         int borderX = 17;
-        Border inside_border = BorderFactory.createEmptyBorder(borderY, borderX, borderY, borderX);
+        // creates some space between grid lines and button labels
+        Border inside_border = BorderFactory.createEmptyBorder(
+                borderY,
+                borderX,
+                borderY,
+                borderX
+        );
+
         int fixLeft = borderX + 6;
         int fixRight = borderX + 5;
-        Border inside_border_c = BorderFactory.createEmptyBorder(borderY, fixLeft, borderY, fixRight);
-        Border inside_border_smaller = BorderFactory.createEmptyBorder(borderY - 1, borderX - 1, borderY - 1, borderX - 1);
-        Border outline = BorderFactory.createLineBorder(CalculatorApp.getDarkGray().darker(), 1);
-        basicBorder = BorderFactory.createCompoundBorder(outside_border, inside_border);
-        basicBorderC = BorderFactory.createCompoundBorder(outside_border, inside_border_c);
-        Border basicBorderSmaller = BorderFactory.createCompoundBorder(outside_border, inside_border_smaller);
-        selectedBorder = BorderFactory.createCompoundBorder(outline, basicBorderSmaller);
+        // creates a bit bigger space for button C/AC, when label is "C" (because it uses less horizontal space)
+        Border inside_border_c = BorderFactory.createEmptyBorder(
+                borderY,
+                fixLeft,
+                borderY,
+                fixRight
+        );
+
+        // creates a smaller space, because selected button has additional outline
+        Border inside_border_smaller = BorderFactory.createEmptyBorder(
+                borderY - 1,
+                borderX - 1,
+                borderY - 1,
+                borderX - 1
+        );
+
+        // creates outline for selected buttons
+        Border outline = BorderFactory.createLineBorder(
+                CalculatorApp.getDarkGray().darker(),
+                1
+        );
+
+        // creates default border for all buttons
+        basicBorder = BorderFactory.createCompoundBorder(
+                outside_border,
+                inside_border
+        );
+
+        // creates border for button C/AC when the label is "C"
+        basicBorderC = BorderFactory.createCompoundBorder(
+                outside_border,
+                inside_border_c
+        );
+
+        // creates a inner part of border for selected button
+        Border basicBorderSmaller = BorderFactory.createCompoundBorder(
+                outside_border,
+                inside_border_smaller
+        );
+
+        // creates border for selected buttons with outline
+        selectedBorder = BorderFactory.createCompoundBorder(
+                outline,
+                basicBorderSmaller
+        );
         setBorder(basicBorder);
 
         setFont(new Font("Arial", Font.PLAIN, 16));
-        super.setContentAreaFilled(false);
+        super.setContentAreaFilled(true); // allows us to change color of buttons
     }
 
+    /**
+     * Changes text displayed on the button
+     * In case of changing text of C/AC button, also changes the border
+     * @param text Text to display on button
+     */
     public void changeTextTo(String text) {
         switch (text) {
             case "AC" -> setBorder(basicBorder);
@@ -45,6 +103,10 @@ public class CalculatorButton extends JButton {
         setText(text);
     }
 
+    /**
+     * Adds an outline to the border
+     * @param selected  true if the button is selected, otherwise false
+     */
     public void setSelected(boolean selected) {
         if(selected) {
             setBorder(selectedBorder);
@@ -53,7 +115,11 @@ public class CalculatorButton extends JButton {
         }
     }
 
-    // source: https://stackoverflow.com/questions/14627223/how-to-change-a-jbutton-color-on-mouse-pressed
+    /**
+     * Changes the button color when clicked
+     * source: https://stackoverflow.com/questions/14627223/how-to-change-a-jbutton-color-on-mouse-pressed
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         if (getModel().isPressed()) {
