@@ -87,7 +87,7 @@ public class CalculatorButton extends JButton {
         setBorder(basicBorder);
 
         setFont(new Font("Arial", Font.PLAIN, 16));
-        super.setContentAreaFilled(true); // allows us to change color of buttons
+        super.setContentAreaFilled(false); // allows us to change color of buttons
     }
 
     /**
@@ -117,7 +117,7 @@ public class CalculatorButton extends JButton {
 
     /**
      * Changes the button color when clicked
-     * source: https://stackoverflow.com/questions/14627223/how-to-change-a-jbutton-color-on-mouse-pressed
+     * source: <a href="https://stackoverflow.com/questions/14627223/how-to-change-a-jbutton-color-on-mouse-pressed">Stackoverflow</a>
      * @param g the <code>Graphics</code> object to protect
      */
     @Override
