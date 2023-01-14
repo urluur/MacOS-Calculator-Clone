@@ -129,5 +129,6 @@ public class CalculatorButton extends JButton {
         }
         g.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g);
+        super.setFocusPainted(false); // removes a line around text in focused button
     }
 }
