@@ -73,7 +73,7 @@ public class CalculatorButton extends JButton {
                 inside_border_c
         );
 
-        // creates a inner part of border for selected button
+        // creates an inner part of border for selected button
         Border basicBorderSmaller = BorderFactory.createCompoundBorder(
                 outside_border,
                 inside_border_smaller

@@ -170,7 +170,7 @@ public class CalculatorApp extends JFrame implements KeyListener {
     }
 
     /**
-     * Adds action listener and key listener to all buttons
+     * Adds action listener and key listener to all buttons,
      * so they work when they are clicked or key is pressed
      * on the keyboard
      */
@@ -261,7 +261,7 @@ public class CalculatorApp extends JFrame implements KeyListener {
 
     /**
      * Set an operator for future operation
-     * Think of it as an black box, because it works magic with existing arguments
+     * Think of it as a black box, because it works magic with existing arguments
      * @param symbol Valid symbols for operator: + - * / %
      */
     public void resolveOperator(String symbol) {
@@ -328,7 +328,7 @@ public class CalculatorApp extends JFrame implements KeyListener {
 
     /**
      * Acts as if a person would type a number in a real calculator
-     * @param fresh new string which must be a digit from 1 - 9
+     * @param fresh new string which must be a digit from 1 to 9
      */
     public void pressed(String fresh) {
         changeToC();
