@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84bf9ebe-acd4-4136-b6ee-b916cfd328ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenshot.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CalculatorApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CalculatorButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorButton.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +45,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/urlu/src/IdeaProjects/dn11",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
